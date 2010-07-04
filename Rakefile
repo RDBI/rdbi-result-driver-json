@@ -5,12 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rdbi-result-driver-json"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{JSON result output for RDBI}
+    gem.description = gem.summary
     gem.email = "erik@hollensbe.org"
-    gem.homepage = "http://github.com/erikh/rdbi-result-driver-json"
+    gem.homepage = "http://github.com/RDBI/rdbi-result-driver-json"
     gem.authors = ["Erik Hollensbe"]
     gem.add_development_dependency "yard", ">= 0"
+    gem.add_dependency 'json'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
