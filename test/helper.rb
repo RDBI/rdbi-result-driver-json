@@ -11,4 +11,13 @@ require 'rdbi/driver/mock'
 require 'rdbi/result/driver/json'
 
 class Test::Unit::TestCase
+  def mock_connect
+    RDBI.connect(:Mock)
+  end
+
+  def mock_statement_with_results(dbh, results)
+    sth = dbh.prepare("some statmeent")
+    sth.result = results
+    return sth
+  end
 end

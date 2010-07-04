@@ -27,9 +27,9 @@ class RDBI::Result::Driver::JSON < RDBI::Result::Driver
         results.push my_hash
       end
 
-      return JSON.dump(results)
+      return ::JSON.dump(results)
     else
-      return JSON.dump(@result.raw_fetch(row_count))
+      return ::JSON.dump(@result.raw_fetch(row_count))
     end
   end
 end
