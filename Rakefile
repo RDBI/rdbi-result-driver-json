@@ -11,6 +11,8 @@ begin
     gem.homepage = "http://github.com/RDBI/rdbi-result-driver-json"
     gem.authors = ["Erik Hollensbe"]
     gem.add_development_dependency "yard", ">= 0"
+    gem.add_development_dependency "rdbi-driver-mock"
+    gem.add_dependency 'rdbi'
     gem.add_dependency 'json'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
