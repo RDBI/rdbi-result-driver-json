@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rdbi-result-driver-json}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Erik Hollensbe"]
-  s.date = %q{2010-07-04}
+  s.date = %q{2010-08-21}
   s.description = %q{JSON result output for RDBI}
   s.email = %q{erik@hollensbe.org}
   s.extra_rdoc_files = [
@@ -24,8 +24,9 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/rdbi/result/driver/json.rb",
+     "rdbi-result-driver-json.gemspec",
      "test/helper.rb",
-     "test/test_rdbi-result-driver-json.rb"
+     "test/test_driver.rb"
   ]
   s.homepage = %q{http://github.com/RDBI/rdbi-result-driver-json}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -34,7 +35,7 @@ Gem::Specification.new do |s|
   s.summary = %q{JSON result output for RDBI}
   s.test_files = [
     "test/helper.rb",
-     "test/test_rdbi-result-driver-json.rb"
+     "test/test_driver.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -42,18 +43,15 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<yard>, [">= 0"])
       s.add_development_dependency(%q<rdbi-driver-mock>, [">= 0"])
       s.add_runtime_dependency(%q<rdbi>, [">= 0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
     else
-      s.add_dependency(%q<yard>, [">= 0"])
       s.add_dependency(%q<rdbi-driver-mock>, [">= 0"])
       s.add_dependency(%q<rdbi>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
     end
   else
-    s.add_dependency(%q<yard>, [">= 0"])
     s.add_dependency(%q<rdbi-driver-mock>, [">= 0"])
     s.add_dependency(%q<rdbi>, [">= 0"])
     s.add_dependency(%q<json>, [">= 0"])
