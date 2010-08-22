@@ -10,7 +10,6 @@ begin
     gem.email = "erik@hollensbe.org"
     gem.homepage = "http://github.com/RDBI/rdbi-result-driver-json"
     gem.authors = ["Erik Hollensbe"]
-    gem.add_development_dependency "yard", ">= 0"
     gem.add_development_dependency "rdbi-driver-mock"
     gem.add_dependency 'rdbi'
     gem.add_dependency 'json'
@@ -44,12 +43,4 @@ end
 task :test => :check_dependencies
 
 task :default => :test
-
-begin
-  require 'yard'
-  YARD::Rake::YardocTask.new
-rescue LoadError
-  task :yardoc do
-    abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"
-  end
-end
+# FIXME doc tasks
