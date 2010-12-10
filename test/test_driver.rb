@@ -1,4 +1,5 @@
 require 'helper'
+require 'json'
 
 class TestDriver < Test::Unit::TestCase
   def setup
@@ -32,16 +33,37 @@ class TestDriver < Test::Unit::TestCase
     sth = mock_statement_with_results(@dbh, [[1,2,3]])
 
     json = sth.execute.fetch(:all, :JSON, :as_object => true)
-    assert_equal("[{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}]", json)
-    
+    assert_equal(
+      {
+          "0" => 1,
+          "1" => 2,
+          "2" => 3,
+      }, JSON.load(json)[0].reject { |x,y| y.nil? })
+
+
     json = sth.execute.as(:JSON, :as_object => true).fetch(:all)
-    assert_equal("[{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}]", json)
+    assert_equal(
+      {
+          "0" => 1,
+          "1" => 2,
+          "2" => 3,
+      }, JSON.load(json)[0].reject { |x,y| y.nil? })
 
     json = sth.execute.as(:JSON, :as_object => true).first
-    assert_equal("{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}", json)
+    assert_equal(
+      {
+          "0" => 1,
+          "1" => 2,
+          "2" => 3,
+      }, JSON.load(json).reject { |x,y| y.nil? })
 
     json = sth.execute.as(:JSON, :as_object => true).last
-    assert_equal("{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}", json)
+    assert_equal(
+      {
+          "0" => 1,
+          "1" => 2,
+          "2" => 3,
+      }, JSON.load(json).reject { |x,y| y.nil? })
 
     sth.finish
   end
