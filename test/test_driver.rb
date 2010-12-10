@@ -18,6 +18,12 @@ class TestDriver < Test::Unit::TestCase
     json = sth.execute.as(:JSON).fetch(:all)
     assert_equal('[[1,2,3]]', json)
 
+    json = sth.execute.as(:JSON).first
+    assert_equal('[1,2,3]', json)
+
+    json = sth.execute.as(:JSON).last
+    assert_equal('[1,2,3]', json)
+
     sth.finish
   end
 
@@ -26,10 +32,16 @@ class TestDriver < Test::Unit::TestCase
     sth = mock_statement_with_results(@dbh, [[1,2,3]])
 
     json = sth.execute.fetch(:all, :JSON, :as_object => true)
-    assert_equal("[{\"5\":null,\"0\":1,\"6\":null,\"1\":2,\"7\":null,\"2\":3,\"8\":null,\"3\":null,\"9\":null,\"4\":null}]", json)
+    assert_equal("[{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}]", json)
     
     json = sth.execute.as(:JSON, :as_object => true).fetch(:all)
-    assert_equal("[{\"5\":null,\"0\":1,\"6\":null,\"1\":2,\"7\":null,\"2\":3,\"8\":null,\"3\":null,\"9\":null,\"4\":null}]", json)
+    assert_equal("[{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}]", json)
+
+    json = sth.execute.as(:JSON, :as_object => true).first
+    assert_equal("{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}", json)
+
+    json = sth.execute.as(:JSON, :as_object => true).last
+    assert_equal("{\"0\":1,\"1\":2,\"2\":3,\"3\":null,\"4\":null,\"5\":null,\"6\":null,\"7\":null,\"8\":null,\"9\":null}", json)
 
     sth.finish
   end

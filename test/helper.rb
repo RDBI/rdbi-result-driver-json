@@ -16,7 +16,7 @@ class Test::Unit::TestCase
   end
 
   def mock_statement_with_results(dbh, results)
-    sth = dbh.prepare("some statmeent")
+    sth = dbh.prepare("some statement")
     sth.result = results
     return sth
   end

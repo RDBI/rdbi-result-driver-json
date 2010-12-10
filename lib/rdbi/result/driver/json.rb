@@ -19,17 +19,31 @@ class RDBI::Result::Driver::JSON < RDBI::Result::Driver
 
       @result.schema.columns.map(&:name).each { |name| index.push(name); obj_hash[name] = nil }
 
-      @result.raw_fetch(row_count).each do |row|
+      if [:first, :last].include?(row_count)
         my_hash = obj_hash.dup
-        row.each_with_index do |col, i|
+        @result.raw_fetch(row_count)[0].each_with_index do |col, i|
           my_hash[index[i]] = col
         end
-        results.push my_hash
+        return ::JSON.dump(my_hash)
+      else
+        @result.raw_fetch(row_count).each do |row|
+          my_hash = obj_hash.dup
+          row.each_with_index do |col, i|
+            my_hash[index[i]] = col
+          end
+          results.push my_hash
+        end
+
+        File.open('/tmp/foo', 'w') << results.inspect
+        return ::JSON.dump(results)
       end
 
-      return ::JSON.dump(results)
     else
-      return ::JSON.dump(@result.raw_fetch(row_count))
+      if [:first, :last].include?(row_count)
+        return ::JSON.dump(@result.raw_fetch(row_count)[0])
+      else
+        return ::JSON.dump(@result.raw_fetch(row_count))
+      end
     end
   end
 end
